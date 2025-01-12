@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { Footer } from "./components/Footer/Footer";
+import { ProductSinglePage } from "./pages/ProductSinglePage/ProductSinglePage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/product/:id" element={<ProductSinglePage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
