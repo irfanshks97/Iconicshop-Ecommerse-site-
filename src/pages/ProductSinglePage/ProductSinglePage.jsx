@@ -9,14 +9,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { STATUS } from "../../utils/status";
 import Loader from "../../components/Loader/Loader";
-
-import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
-
+import {
+  addToCart,
+  getCartMessageStatus,
+  getCartTotal,
+  setCartMessageOff,
+  setCartMessageOn,
+} from "../../store/cartSlice";
+import CartMessage from "../../components/CartMessage/CartMessage.jsx";
 export const ProductSinglePage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector(getProductSingle);
   const productSingleStatus = useSelector(getSingleProductStatus);
+  const CartMessageStatus = useSelector(getCartMessageStatus);
 
   const [quantity, setQuantity] = useState(1);
   const [mainImage, setMainImage] = useState("");
@@ -31,6 +37,15 @@ export const ProductSinglePage = () => {
     }
   }, [product]);
 
+  useEffect(() => {
+    if (CartMessageStatus) {
+      const timer = setTimeout(() => {
+        dispatch(setCartMessageOff());
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [CartMessageStatus, dispatch]);
+
   const discountedPrice =
     product?.price * (1 - product?.discountPercentage / 100);
 
@@ -44,6 +59,24 @@ export const ProductSinglePage = () => {
 
   const decreaseQty = () => {
     setQuantity((prevQty) => Math.max(prevQty - 1, 1));
+  };
+
+  const handleAddToCart = () => {
+    const totalPrice = quantity * discountedPrice;
+    dispatch(
+      addToCart({
+        ...product,
+        quantity,
+        totalPrice,
+        discountedPrice,
+      })
+    );
+    dispatch(getCartTotal());
+    dispatch(setCartMessageOn(true));
+  };
+
+  const handleBuyNow = () => {
+    console.log("Buy Now clicked for product:", product);
   };
 
   return (
@@ -125,21 +158,28 @@ export const ProductSinglePage = () => {
 
             <div className="d-flex align-items-center mb-4">
               <span className="me-3">Quantity:</span>
-              <button
-                className="btn btn-outline-secondary"
-                onClick={decreaseQty}
-                disabled={product?.stock === 0}
-              >
-                <CiCircleMinus />
-              </button>
-              <span className="mx-3">{quantity}</span>
-              <button
-                className="btn btn-outline-secondary"
-                onClick={increaseQty}
-                disabled={product?.stock === 0}
-              >
-                <CiCirclePlus />
-              </button>
+              <div className="quantity-selector d-flex align-items-center justify-content-center">
+                <div className="quantity-pagination">
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={decreaseQty}
+                    disabled={product?.stock === 0 || quantity <= 1}
+                  >
+                    -
+                  </button>
+                  <span className="quantity-value">{quantity}</span>
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={increaseQty}
+                    disabled={
+                      product?.stock === 0 || quantity >= product?.stock
+                    }
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
               {product?.stock === 0 && (
                 <span className="ms-3 text-danger fw-bold">Out of Stock</span>
               )}
@@ -147,6 +187,7 @@ export const ProductSinglePage = () => {
 
             <button
               className="btn btn-primary btn-lg w-100 mt-3 mb-2"
+              onClick={handleAddToCart}
               disabled={product?.stock === 0}
               style={{
                 borderRadius: "25px",
@@ -159,6 +200,7 @@ export const ProductSinglePage = () => {
 
             <button
               className="btn btn-success btn-lg w-100 mt-2"
+              onClick={handleBuyNow}
               disabled={product?.stock === 0}
               style={{
                 borderRadius: "25px",
@@ -171,6 +213,7 @@ export const ProductSinglePage = () => {
           </div>
         </div>
       </div>
+      {CartMessageStatus && <CartMessage />}
     </main>
   );
 };

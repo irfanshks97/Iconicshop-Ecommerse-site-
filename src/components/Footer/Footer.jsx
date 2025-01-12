@@ -1,6 +1,9 @@
 export const Footer = () => {
   return (
-    <footer className="bg-dark text-light pt-4 pb-2">
+    <footer
+      className="text-light pt-4 pb-2"
+      style={{ backgroundColor: "#07326A" }}
+    >
       <div className="container">
         {/* Brand Section */}
         <div className="row mb-4">
