@@ -5,7 +5,7 @@ import { STATUS } from "../utils/status";
 const initialState = {
   products: [],
   productsStatus: STATUS.IDLE,
-  productSingle: null, // Changed to null for clarity
+  productSingle: [],
   productSingleStatus: STATUS.IDLE,
   error: null,
 };

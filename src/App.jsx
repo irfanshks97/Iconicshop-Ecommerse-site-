@@ -7,6 +7,7 @@ import store from "./store/store";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { Footer } from "./components/Footer/Footer";
 import { ProductSinglePage } from "./pages/ProductSinglePage/ProductSinglePage";
+import CategoryProductPage from "./pages/CategoryPage/CategoryPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/product/:id" element={<ProductSinglePage />} />
+          <Route path="/:category" element={<CategoryProductPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
