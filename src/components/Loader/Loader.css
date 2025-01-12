@@ -1,0 +1,101 @@
+:root {
+  --size: 50px;
+  --coefficient: 1;
+  --color-one: #8338ec;
+  --color-two: #3a86ef;
+  --color-three: #ff006e;
+}
+
+.loader-wrapper {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+/* 3D scene setup */
+.loader-scene {
+  position: relative;
+  perspective: 1000px;
+}
+
+/* Shadow beneath the loader */
+.loader-shadow {
+  width: calc(var(--size) * 1.5);
+  height: calc(var(--size) * 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  position: absolute;
+  bottom: -20px;
+  animation: shadow-pulse 2s infinite ease-in-out;
+}
+
+/* Loader animation container */
+.loader-scaler {
+  width: var(--size);
+  height: var(--size);
+  position: relative;
+  transform-style: preserve-3d;
+  animation: loader-spin 2s infinite linear;
+}
+
+/* Cuboid setup */
+.loader-cuboid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.cuboid-side {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--color-one);
+  opacity: 0.8;
+  transform-origin: center;
+}
+
+/* Position each side of the cuboid */
+.cuboid-side:nth-child(1) {
+  transform: rotateX(90deg) translateZ(calc(var(--size) / 2));
+}
+.cuboid-side:nth-child(2) {
+  transform: rotateX(-90deg) translateZ(calc(var(--size) / 2));
+}
+.cuboid-side:nth-child(3) {
+  transform: rotateY(90deg) translateZ(calc(var(--size) / 2));
+  background: var(--color-two);
+}
+.cuboid-side:nth-child(4) {
+  transform: rotateY(-90deg) translateZ(calc(var(--size) / 2));
+  background: var(--color-three);
+}
+.cuboid-side:nth-child(5) {
+  transform: translateZ(calc(var(--size) / 2));
+}
+.cuboid-side:nth-child(6) {
+  transform: rotateY(180deg) translateZ(calc(var(--size) / 2));
+}
+
+/* Animations */
+@keyframes loader-spin {
+  0% {
+    transform: rotateY(0deg) rotateX(0deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(360deg);
+  }
+}
+
+@keyframes shadow-pulse {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scaleX(1.5);
+    opacity: 0.4;
+  }
+}

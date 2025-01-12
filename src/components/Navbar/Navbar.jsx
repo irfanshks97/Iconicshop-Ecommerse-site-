@@ -67,7 +67,7 @@ export const Navbar = () => {
 
           <ul className="navbar-nav align-items-center me-5">
             <li className="nav-item me-5">
-              <Link to="/wishList">
+              <Link to="/">
                 <img src={wishlist} alt="wishlist" width="40px" />
               </Link>
             </li>

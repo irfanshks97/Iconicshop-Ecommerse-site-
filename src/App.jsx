@@ -4,6 +4,8 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Header } from "./components/Header/Header";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import { HomePage } from "./pages/HomePage/HomePage";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -11,8 +13,9 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route />
+          <Route path="/" element={<HomePage />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </Provider>
   );
