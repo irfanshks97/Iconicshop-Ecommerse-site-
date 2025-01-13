@@ -4,7 +4,7 @@
   right: 0;
   height: 100vh;
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   background: #fff;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
   transform: translateX(100%);
@@ -30,8 +30,8 @@
 }
 
 .cart-item-img {
-  width: 60px;
-  height: 60px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 8px;
 }

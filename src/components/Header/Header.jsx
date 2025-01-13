@@ -1,7 +1,7 @@
 import { Navbar } from "../Navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ViewAll from "/assets/Images/categories/ViewAll.png";
 import {
   fetchAsyncCategories,
@@ -13,12 +13,16 @@ export const Header = () => {
   const categories = useSelector(getAllCategories);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchAsyncCategories());
     setLoading(false);
   }, [dispatch]);
 
+  const handleCategoriesClick = (categoryName) => {
+    setShowAll(false);
+    navigate(`/${categoryName}`);
+  };
   return (
     <div className="header">
       <div style={{ height: "50px" }}>
@@ -34,7 +38,11 @@ export const Header = () => {
               className="col-6 col-sm-4 col-md-3 col-lg-2 mb-4"
             >
               <div className="card shadow text-center border-0 h-100">
-                <Link to={`/${category.name}`} className="text-decoration-none">
+                <Link
+                  to={`/${category.name}`}
+                  className="text-decoration-none"
+                  onClick={handleCategoriesClick}
+                >
                   <img
                     src={`/assets/Images/categories/${category.name}.png`}
                     alt={category.name}
