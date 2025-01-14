@@ -2,7 +2,7 @@ import { Navbar } from "../Navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ViewAll from "/assets/Images/categories/ViewAll.png";
+import ViewAll from "/assets/Images/categories/ViewAll.webp";
 import {
   fetchAsyncCategories,
   getAllCategories,
@@ -44,7 +44,7 @@ export const Header = () => {
                   onClick={handleCategoriesClick}
                 >
                   <img
-                    src={`/assets/Images/categories/${category.name}.png`}
+                    src={`/assets/Images/categories/${category.name}.webp`}
                     alt={category.name}
                     className="card-img-top p-2 mx-auto mt-3"
                     style={{ width: "50%", objectFit: "cover" }}

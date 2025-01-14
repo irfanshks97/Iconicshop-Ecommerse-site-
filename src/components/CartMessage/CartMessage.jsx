@@ -1,5 +1,5 @@
 import "./CartMessage.css";
-import checkmark from "/assets/Images/categories/Check-mark.jpg";
+import checkmark from "/assets/Images/categories/Check-mark.webp";
 
 const CartMessage = () => {
   return (

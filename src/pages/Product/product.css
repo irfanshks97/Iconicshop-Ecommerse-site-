@@ -1,0 +1,9 @@
+.product-card {
+  height: 100px !important;
+  width: 500px !important;
+}
+.product-content {
+  width: ;
+  height: auto;
+  object-fit: contain;
+}

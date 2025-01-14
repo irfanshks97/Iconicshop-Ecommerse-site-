@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import shoplogo from "/assets/Images/categories/shopLogo.gif";
 import { GrCart } from "react-icons/gr";
-import wishlist from "/assets/Images/categories/wishlist.png";
+import wishlist from "/assets/Images/categories/wishlist.webp";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

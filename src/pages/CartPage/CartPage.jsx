@@ -1,6 +1,6 @@
 import "./CartPage.css";
 import { useSelector, useDispatch } from "react-redux";
-import empty from "/assets/Images/categories/empty.png";
+import empty from "/assets/Images/categories/empty.webp";
 import {
   getAllCarts,
   removeFromCart,
