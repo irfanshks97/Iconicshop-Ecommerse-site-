@@ -80,8 +80,8 @@ export const ProductSinglePage = () => {
   };
 
   return (
-    <main className="py-5 bg-light">
-      <div className="container-fluid p-5">
+    <main className="p-4 bg-light container">
+      <div className="p-1">
         <div className="row bg-white p-5 shadow rounded">
           <div>
             <span className="badge fs-6 bg-info text-dark text-uppercase">

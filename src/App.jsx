@@ -10,6 +10,7 @@ import { ProductSinglePage } from "./pages/ProductSinglePage/ProductSinglePage";
 import CategoryProductPage from "./pages/CategoryPage/CategoryPage";
 import CartPage from "./pages/CartPage/CartPage";
 import { SearchPage } from "./pages/SearchPage/SearchPage";
+import { WishList } from "./pages/WishlistPage/WishlistPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/:category" element={<CategoryProductPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/search/:query" element={<SearchPage />} />
+          <Route path="/wishlist" element={<WishList />} />
         </Routes>
         <Footer />
       </BrowserRouter>

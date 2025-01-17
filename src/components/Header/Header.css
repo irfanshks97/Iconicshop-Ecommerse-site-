@@ -1,0 +1,13 @@
+.header-container {
+  margin-top: 70px;
+  min-height: 100vh;
+  background-image: url("../../utils/BannerImages/banner-1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.display-1 {
+  font-size: calc(1.425rem + 3.5vw);
+  font-weight: 300;
+  line-height: 1.2;
+}

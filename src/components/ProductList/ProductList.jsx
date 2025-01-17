@@ -14,13 +14,20 @@ const ProductList = ({ products }) => {
             const discountedPrice =
               product.price -
               product.price * (product.discountPercentage / 100);
-
+            const discountedPercentage =
+              (discountedPrice * 100) / product.price;
             return (
               <div
                 className="col-12 col-sm-6 col-md-4 col-lg-3"
                 key={product.id}
               >
-                <Product product={{ ...product, discountedPrice }} />
+                <Product
+                  product={{
+                    ...product,
+                    discountedPrice,
+                    discountedPercentage: discountedPercentage.toFixed(2),
+                  }}
+                />
               </div>
             );
           })}

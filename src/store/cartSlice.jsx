@@ -14,6 +14,12 @@ const storeInLocalStorage = (data) => {
   localStorage.setItem("cart", JSON.stringify(data));
 };
 
+const calculateTotals = (carts) => {
+  const totalAmount = carts.reduce((total, item) => total + item.totalPrice, 0);
+  const itemsCount = carts.reduce((count, item) => count + item.quantity, 0);
+  return { totalAmount, itemsCount };
+};
+
 const initialState = {
   carts: fetchFromLocalStorage(),
   itemsCount: 0,
@@ -38,30 +44,18 @@ const cartSlice = createSlice({
           totalPrice: quantity * price,
         });
       }
-
-      // Recalculate totalAmount and itemsCount immediately
-      state.totalAmount = state.carts.reduce(
-        (total, item) => total + item.totalPrice,
-        0
-      );
-      state.itemsCount = state.carts.reduce(
-        (count, item) => count + item.quantity,
-        0
-      );
-
+      const totals = calculateTotals(state.carts);
+      state.totalAmount = totals.totalAmount;
+      state.itemsCount = totals.itemsCount;
       storeInLocalStorage(state.carts);
     },
 
     removeFromCart: (state, action) => {
       state.carts = state.carts.filter((item) => item.id !== action.payload);
-      state.totalAmount = state.carts.reduce(
-        (total, item) => total + item.totalPrice,
-        0
-      );
-      state.itemsCount = state.carts.reduce(
-        (count, item) => count + item.quantity,
-        0
-      );
+
+      const totals = calculateTotals(state.carts);
+      state.totalAmount = totals.totalAmount;
+      state.itemsCount = totals.itemsCount;
 
       storeInLocalStorage(state.carts);
     },
@@ -70,18 +64,6 @@ const cartSlice = createSlice({
       (state.carts = []), (state.totalAmount = 0), (state.itemsCount = 0);
       storeInLocalStorage(state.carts);
     },
-
-    getCartTotal: (state) => {
-      state.totalAmount = state.carts.reduce(
-        (total, item) => total + item.totalPrice,
-        0
-      );
-      state.itemsCount = state.carts.reduce(
-        (count, item) => count + item.quantity,
-        0
-      );
-    },
-
     toggleCartQty: (state, action) => {
       const { id, type } = action.payload;
       const item = state.carts.find((item) => item.id === id);
@@ -95,12 +77,23 @@ const cartSlice = createSlice({
         item.totalPrice = item.quantity * item.price;
       }
 
+      const totals = calculateTotals(state.carts);
+      state.totalAmount = totals.totalAmount;
+      state.itemsCount = totals.itemsCount;
+
       storeInLocalStorage(state.carts);
+    },
+
+    getCartTotal: (state) => {
+      const totals = calculateTotals(state.carts);
+      state.totalAmount = totals.totalAmount;
+      state.itemsCount = totals.itemsCount;
     },
 
     setCartMessageOn: (state) => {
       state.isCartMessageOn = true;
     },
+
     setCartMessageOff: (state) => {
       state.isCartMessageOn = false;
     },
@@ -109,14 +102,15 @@ const cartSlice = createSlice({
 
 export const {
   addToCart,
-  setCartMessageOff,
-  setCartMessageOn,
-  getCartTotal,
-  toggleCartQty,
-  clearCart,
   removeFromCart,
+  clearCart,
+  toggleCartQty,
+  getCartTotal,
+  setCartMessageOn,
+  setCartMessageOff,
 } = cartSlice.actions;
 
+// Selectors
 export const getAllCarts = (state) => state.cart?.carts || [];
 export const getCartItemsCount = (state) => state.cart?.itemsCount || 0;
 export const getCartTotalAmount = (state) => state.cart?.totalAmount || 0;

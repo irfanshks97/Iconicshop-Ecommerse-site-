@@ -39,7 +39,7 @@ export const Navbar = () => {
     <>
       <nav
         className="container-fluid p-1 ps-5 pe-5 d-flex align-items-center navbar navbar-expand-md fixed-top shadow"
-        style={{ backgroundColor: "#fff" }}
+        style={{ backgroundColor: "#fff", minHeight: "90px" }}
       >
         {/* Logo */}
         <Link className="navbar-brand" to="/">
@@ -104,7 +104,7 @@ export const Navbar = () => {
             <li className="nav-item d-flex align-items-center">
               <button
                 className="btn btn-outline-none position-relative"
-                onClick={toggleCart} // Show or hide cart on click
+                onClick={toggleCart}
                 style={{ display: "flex", alignItems: "center", gap: "8px" }}
               >
                 <GrCart className="text-dark" size={30} />
@@ -119,7 +119,12 @@ export const Navbar = () => {
 
             {/* Login Button */}
             <li className="nav-item mx-3">
-              <button className="btn btn-outline-dark">Login</button>
+              <button
+                className="btn btn-outline-dark rounded-pill text-center"
+                style={{ width: "100px" }}
+              >
+                Login
+              </button>
             </li>
           </ul>
         </div>
