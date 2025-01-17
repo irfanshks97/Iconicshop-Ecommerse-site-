@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PriceFormat } from "../../Utils/PriceFormat";
+import { PriceFormat } from "../../utils/PriceFormat";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToWishList,
