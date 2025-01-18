@@ -9,7 +9,11 @@ import {
 } from "../../store/wishListSlice";
 import "./product.css";
 import { IoCartOutline, IoStarSharp } from "react-icons/io5";
-// Custom Heart SVG Component
+import {
+  addToCart,
+  getCartItemsCount,
+  getCartTotal,
+} from "../../store/cartSlice";
 const Heart = ({ isInWishlist, onClick }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -32,17 +36,24 @@ const Heart = ({ isInWishlist, onClick }) => (
 const Product = ({ product }) => {
   const dispatch = useDispatch();
   const wishlist = useSelector(getWishListItems);
-
   const isInWishlist = wishlist.some((item) => item.id === product.id);
 
   const handleWishlistToggle = () => {
     if (isInWishlist) {
       dispatch(removeFromWishList(product.id));
     } else {
+      alert("Yout item added to wishlist");
       dispatch(addToWishList(product));
     }
   };
 
+  const handleAddToCart = () => {
+    const productWithQuantity = {
+      ...product,
+      quantity: 1,
+    };
+    dispatch(addToCart(productWithQuantity));
+  };
   return (
     <div className="card shadow-sm" style={{ minHeight: "480px" }}>
       <div className="card-header d-flex justify-content-center">
@@ -53,7 +64,7 @@ const Product = ({ product }) => {
         >
           <img
             className="card-img-top objectfit-cover"
-            src={product?.images?.[0] || "placeholder-image.jpg"}
+            src={product?.images[0]}
             alt={product?.title}
             style={{
               height: "250px",
@@ -67,7 +78,7 @@ const Product = ({ product }) => {
         <div>
           <h3
             className="card-title mb-3 text-dark"
-            style={{ maxWidth: "90%", minHeight: "10px" }}
+            style={{ maxWidth: "50%", minHeight: "10px" }}
           >
             {product?.title}
           </h3>
@@ -97,14 +108,17 @@ const Product = ({ product }) => {
         </div>
       </div>
       <div className="card-footer border-top text-start d-flex align-items-center row m-0 p-2">
-        <span className="col-9">
-          <div className="btn btn-outline-dark text-center rounded-pill w-100">
+        <div className="col-9">
+          <div
+            className="btn btn-outline-dark text-center rounded-pill w-100"
+            onClick={handleAddToCart}
+          >
             <span>
               <IoCartOutline />
             </span>{" "}
             <span style={{ fontSize: "0.8rem" }}> Add to Cart</span>
           </div>
-        </span>
+        </div>
 
         <span className="col-3">
           <span className="">
