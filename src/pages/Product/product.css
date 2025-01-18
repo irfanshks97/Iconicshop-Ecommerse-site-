@@ -1,7 +1,3 @@
-.card {
-  border-radius: 0px !important;
-}
-
 .card img:hover {
   transform: scale(1.12);
   transition: 0.5s ease-in-out;

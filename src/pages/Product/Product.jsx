@@ -44,7 +44,7 @@ const Product = ({ product }) => {
   };
 
   return (
-    <div className="card shadow-sm" style={{ minHeight: "500px" }}>
+    <div className="card shadow-sm" style={{ minHeight: "480px" }}>
       <div className="card-header d-flex justify-content-center">
         <Link
           to={`/product/${product?.id}`}
@@ -56,7 +56,7 @@ const Product = ({ product }) => {
             src={product?.images?.[0] || "placeholder-image.jpg"}
             alt={product?.title}
             style={{
-              height: "250px",
+              height: "75%",
               objectFit: "contain",
             }}
           />
@@ -107,7 +107,7 @@ const Product = ({ product }) => {
         </span>
 
         <span className="col-3">
-          <span className="rounded-1 p-0">
+          <span className="">
             <Heart isInWishlist={isInWishlist} onClick={handleWishlistToggle} />
           </span>
         </span>

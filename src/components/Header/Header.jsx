@@ -89,16 +89,13 @@ export const Header = () => {
               <div className="d-flex gap-3 mt-5">
                 <a
                   href="#categories"
-                  className="btn btn-primary text-uppercase fs-6 rounded-pill px-4 py-3 mt-3"
+                  className="text-uppercase btn btn-outline-success rounded-pill ps-3 pe-3"
                 >
                   Start Shopping
                 </a>
-                <a
-                  href="#categories"
-                  className="btn btn-dark text-uppercase fs-6 rounded-pill px-4 py-3 mt-3"
-                >
+                <button className="text-uppercase btn-home btn btn-outline-dark rounded-pill ps-3 pe-3">
                   Browse Categories
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -125,8 +122,8 @@ export const Header = () => {
                     alt={category.name}
                     className="card-img-top mx-auto mb-3 rounded-circle bg-light shadow"
                     style={{
-                      width: "150px",
-                      height: "150px",
+                      width: "120px",
+                      height: "120px",
                       objectFit: "cover",
                     }}
                   />
@@ -149,7 +146,11 @@ export const Header = () => {
                 src={ViewAll}
                 alt={showAll ? "View Less" : "View All"}
                 className="card-img-top mx-auto mb-3 rounded-circle bg-light shadow "
-                style={{ width: "85%", objectFit: "cover" }}
+                style={{
+                  width: "120px",
+                  height: "120px",
+                  objectFit: "cover",
+                }}
               />
               <div className="card-body">
                 <h6 className="card-title text-dark ">
