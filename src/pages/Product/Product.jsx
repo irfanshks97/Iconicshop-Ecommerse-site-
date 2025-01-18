@@ -56,7 +56,7 @@ const Product = ({ product }) => {
             src={product?.images?.[0] || "placeholder-image.jpg"}
             alt={product?.title}
             style={{
-              height: "75%",
+              height: "250px",
               objectFit: "contain",
             }}
           />
