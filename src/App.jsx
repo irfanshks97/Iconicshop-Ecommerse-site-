@@ -11,10 +11,12 @@ import CategoryProductPage from "./pages/CategoryPage/CategoryPage";
 import CartPage from "./pages/CartPage/CartPage";
 import { SearchPage } from "./pages/SearchPage/SearchPage";
 import { WishList } from "./pages/WishlistPage/WishlistPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <Provider store={store}>
+      <ToastContainer autoClose={2000} />
       <BrowserRouter>
         <Header />
         <Routes>

@@ -7,13 +7,13 @@ import {
   getWishListItems,
   removeFromWishList,
 } from "../../store/wishListSlice";
-import "./product.css";
 import { IoCartOutline, IoStarSharp } from "react-icons/io5";
-import {
-  addToCart,
-  getCartItemsCount,
-  getCartTotal,
-} from "../../store/cartSlice";
+import { addToCart } from "../../store/cartSlice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import "./product.css";
+
+// Heart Component for Wishlist
 const Heart = ({ isInWishlist, onClick }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ const Heart = ({ isInWishlist, onClick }) => (
       stroke: "black",
       strokeWidth: "0.5",
       cursor: "pointer",
-      transition: "fill 0.3s ease", // Smooth transition
+      transition: "fill 0.3s ease",
     }}
   >
     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -38,22 +38,24 @@ const Product = ({ product }) => {
   const wishlist = useSelector(getWishListItems);
   const isInWishlist = wishlist.some((item) => item.id === product.id);
 
+  // Wishlist Toggle Handler
   const handleWishlistToggle = () => {
     if (isInWishlist) {
       dispatch(removeFromWishList(product.id));
+      toast.error("Item removed from wishlist!", { position: "top-right" });
     } else {
-      alert("Yout item added to wishlist");
       dispatch(addToWishList(product));
+      toast.success("Item added to wishlist!", { position: "top-right" });
     }
   };
 
+  // Add to Cart Handler
   const handleAddToCart = () => {
-    const productWithQuantity = {
-      ...product,
-      quantity: 1,
-    };
+    const productWithQuantity = { ...product, quantity: 1 };
     dispatch(addToCart(productWithQuantity));
+    toast.success("Item added to cart!", { position: "top-right" });
   };
+
   return (
     <div className="card shadow-sm" style={{ minHeight: "480px" }}>
       <div className="card-header d-flex justify-content-center">
@@ -74,7 +76,7 @@ const Product = ({ product }) => {
         </Link>
       </div>
 
-      <div className="card-body text-start ">
+      <div className="card-body text-start">
         <div>
           <h3
             className="card-title mb-3 text-dark"
@@ -101,29 +103,25 @@ const Product = ({ product }) => {
             <span className="text-dark fw-semibold">
               {PriceFormat(product?.discountedPrice)}
             </span>
-            <span className="badge border rounded-0 fw-normal  lh-1 text-body-secondary">
+            <span className="badge border rounded-0 fw-normal lh-1 text-body-secondary">
               {product?.discountPercentage}% Off
             </span>
           </div>
         </div>
       </div>
+
       <div className="card-footer border-top text-start d-flex align-items-center row m-0 p-2">
         <div className="col-9">
-          <div
+          <button
             className="btn btn-outline-dark text-center rounded-pill w-100"
             onClick={handleAddToCart}
           >
-            <span>
-              <IoCartOutline />
-            </span>{" "}
+            <IoCartOutline />{" "}
             <span style={{ fontSize: "0.8rem" }}> Add to Cart</span>
-          </div>
+          </button>
         </div>
-
         <span className="col-3">
-          <span className="">
-            <Heart isInWishlist={isInWishlist} onClick={handleWishlistToggle} />
-          </span>
+          <Heart isInWishlist={isInWishlist} onClick={handleWishlistToggle} />
         </span>
       </div>
     </div>
