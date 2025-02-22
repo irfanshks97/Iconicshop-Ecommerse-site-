@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <div style={{ height: "50px" }}>
+      <div style={{ height: "10vh" }}>
         <Navbar />
       </div>
       {!isAuthPage && (
