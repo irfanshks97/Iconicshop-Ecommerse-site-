@@ -39,7 +39,7 @@ export const Navbar = () => {
     <>
       <nav
         className="container-fluid p-1 ps-5 pe-5 d-flex align-items-center navbar navbar-expand-md fixed-top shadow"
-        style={{ backgroundColor: "#fff", minHeight: "90px" }}
+        style={{ backgroundColor: "#fff" }}
       >
         {/* Logo */}
         <Link className="navbar-brand" to="/">
