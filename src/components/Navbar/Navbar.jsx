@@ -119,12 +119,14 @@ export const Navbar = () => {
 
             {/* Login Button */}
             <li className="nav-item mx-3">
-              <button
-                className="btn btn-outline-dark rounded-pill text-center"
-                style={{ width: "100px" }}
-              >
-                Login
-              </button>
+              <Link to="/login">
+                <button
+                  className="btn btn-outline-dark rounded-pill text-center"
+                  style={{ width: "100px" }}
+                >
+                  Login
+                </button>
+              </Link>
             </li>
           </ul>
         </div>

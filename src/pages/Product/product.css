@@ -1,7 +1,0 @@
-.card img:hover {
-  transform: scale(1.12);
-  transition: 0.5s ease-in-out;
-}
-.card-header {
-  background: linear-gradient(360deg, #e3e7d2, #acd9fd);
-}

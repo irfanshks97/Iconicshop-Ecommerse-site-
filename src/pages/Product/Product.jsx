@@ -7,122 +7,96 @@ import {
   getWishListItems,
   removeFromWishList,
 } from "../../store/wishListSlice";
-import { IoCartOutline, IoStarSharp } from "react-icons/io5";
+import {
+  IoCartOutline,
+  IoStarSharp,
+  IoHeartOutline,
+  IoHeart,
+} from "react-icons/io5";
 import { addToCart } from "../../store/cartSlice";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
-import "./product.css";
-
-// Heart Component for Wishlist
-const Heart = ({ isInWishlist, onClick }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="30"
-    height="30"
-    onClick={onClick}
-    style={{
-      fill: isInWishlist ? "red" : "transparent",
-      stroke: "black",
-      strokeWidth: "0.5",
-      cursor: "pointer",
-      transition: "fill 0.3s ease",
-    }}
-  >
-    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-  </svg>
-);
+import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
   const wishlist = useSelector(getWishListItems);
   const isInWishlist = wishlist.some((item) => item.id === product.id);
 
-  // Wishlist Toggle Handler
   const handleWishlistToggle = () => {
     if (isInWishlist) {
       dispatch(removeFromWishList(product.id));
-      toast.error("Item removed from wishlist!", { position: "top-right" });
+      toast.error("Removed from wishlist!", { position: "top-right" });
     } else {
       dispatch(addToWishList(product));
-      toast.success("Item added to wishlist!", { position: "top-right" });
+      toast.success("Added to wishlist!", { position: "top-right" });
     }
   };
 
-  // Add to Cart Handler
   const handleAddToCart = () => {
     const productWithQuantity = { ...product, quantity: 1 };
     dispatch(addToCart(productWithQuantity));
-    toast.success("Item added to cart!", { position: "top-right" });
+    toast.success("Added to cart!", { position: "top-right" });
   };
 
   return (
-    <div className="card shadow-sm" style={{ minHeight: "480px" }}>
-      <div className="card-header d-flex justify-content-center">
-        <Link
-          to={`/product/${product?.id}`}
-          className="text-decoration-none"
-          key={product?.id}
-        >
-          <img
-            className="card-img-top objectfit-cover"
-            src={product?.images[0]}
-            alt={product?.title}
-            style={{
-              height: "250px",
-              objectFit: "contain",
-            }}
-          />
-        </Link>
-      </div>
-
-      <div className="card-body text-start">
-        <div>
-          <h3
-            className="card-title mb-3 text-dark"
-            style={{ maxWidth: "50%", minHeight: "10px" }}
+    <div className="col-12 mb-4 d-flex">
+      <div className="card border-0 shadow-sm h-100 w-100">
+        {/* Image Section */}
+        <div className="position-relative">
+          <Link to={`/product/${product.id}`} className="d-block text-center">
+            <img
+              className="card-img-top p-3 img-fluid"
+              src={product.images[0]}
+              alt={product.title}
+              style={{ height: "200px", objectFit: "contain" }}
+            />
+          </Link>
+          <button
+            className="btn position-absolute top-0 end-0 m-2 text-danger"
+            onClick={handleWishlistToggle}
+            style={{ background: "none", border: "none" }}
           >
-            {product?.title}
-          </h3>
-          <div className="mb-3 text-start">
+            {isInWishlist ? (
+              <IoHeart size={26} />
+            ) : (
+              <IoHeartOutline size={26} />
+            )}
+          </button>
+        </div>
+
+        {/* Product Details */}
+        <div className="card-body text-center d-flex flex-column">
+          <h6 className="card-title text-truncate">{product.title}</h6>
+          <div className="d-flex justify-content-center align-items-center mb-2">
             {[1, 2, 3, 4, 5].map((index) => (
               <IoStarSharp
                 key={index}
-                style={{
-                  color:
-                    index <= Math.floor(product.rating)
-                      ? "#0dcaf0"
-                      : "lightgray",
-                  fontSize: "1.2rem",
-                }}
+                className={
+                  index <= Math.floor(product.rating)
+                    ? "text-warning"
+                    : "text-muted"
+                }
               />
             ))}
           </div>
-          <div className="d-flex align-items-center gap-2 text-start">
-            <del> {PriceFormat(product?.price)}</del>
-            <span className="text-dark fw-semibold">
-              {PriceFormat(product?.discountedPrice)}
+          <div className="d-flex justify-content-center align-items-center">
+            <del className="text-muted me-2">{PriceFormat(product.price)}</del>
+            <span className="fw-bold me-2">
+              {PriceFormat(product.discountedPrice)}
             </span>
-            <span className="badge border rounded-0 fw-normal lh-1 text-body-secondary">
-              {product?.discountPercentage}% Off
+            <span className="badge bg-success">
+              {product.discountPercentage}% Off
             </span>
           </div>
         </div>
-      </div>
 
-      <div className="card-footer border-top text-start d-flex align-items-center row m-0 p-2">
-        <div className="col-9">
-          <button
-            className="btn btn-outline-dark text-center rounded-pill w-100"
-            onClick={handleAddToCart}
-          >
-            <IoCartOutline />{" "}
-            <span style={{ fontSize: "0.8rem" }}> Add to Cart</span>
+        {/* Footer Buttons */}
+        <div className="card-footer bg-white text-center">
+          <button className="btn w-100" onClick={handleAddToCart}>
+            <IoCartOutline /> Add to Cart
           </button>
         </div>
-        <span className="col-3">
-          <Heart isInWishlist={isInWishlist} onClick={handleWishlistToggle} />
-        </span>
       </div>
     </div>
   );
